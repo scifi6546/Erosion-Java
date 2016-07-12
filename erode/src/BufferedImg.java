@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+//
 
 public class BufferedImg {
 BufferedImage rockimg;
@@ -65,14 +65,19 @@ public void makeBuffered(intHeight height){
 	for(int y = 0; y < height.HeightPoints.points.length; y++){
 		for(int x = 0; x < height.HeightPoints.points[y].length; x++){
 			int rockheight = (int) height.HeightPoints.points[y][x].rock;
+			if(rockheight> 255)
+				rockheight = 255;
+			else if(rockheight < 0)
+				rockheight = 0;
 			Color tempcol = new Color(rockheight,rockheight,rockheight);
 			rockimg.setRGB(x, y, tempcol.getRGB());
 			int waterheight = (int) height.HeightPoints.points[y][x].water;
+			if(waterheight > 255)
+				waterheight = 255;
+			else if(waterheight < 0)
+				waterheight = 0;
 			tempcol = new Color(waterheight,waterheight,waterheight);
 			water.setRGB(x, y, tempcol.getRGB());
-			int difference = (int) height.HeightPoints.points[y][x].rockdifference;
-			tempcol = new Color(difference, difference, difference);
-			differenceIMG.setRGB(x, y, tempcol.getRGB());
 		}
 	}
 }
@@ -82,6 +87,7 @@ public void export(String inbetween) throws IOException{
 	File WaterOutput = new File(root + "/" + "Water" + inbetween + ".png");
 	ImageIO.write(water,"png", WaterOutput);
 	File DifferenceOutput = new File("Difference" + inbetween + ".png");
+	System.out.println(root);
 	//ImageIO.write(differenceIMG,"png", DifferenceOutput);
 }
 

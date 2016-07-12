@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import javax.swing.*;
-
+//
 public class Run {
 private static BufferedImg img;
 	/**
@@ -54,7 +54,7 @@ public static int HEIGHT = 600;
 				height.erode();
 			
 					
-				if(i%5 == 0){
+				if(i%1 == 0){
 				buffered.makeBuffered(height);
 				buffered.export(i + "");
 				//height.write();
