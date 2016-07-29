@@ -35,8 +35,8 @@ public intHeight(groundarray in, double scaleIn){
 							tempwater = 0;
 							temprock = 0;
 							}else{
-								tempwater = HeightPoints.points[y][x].water;
-								temprock = HeightPoints.points[y][x].rock;
+								tempwater = HeightPoints.points[a][b].water;
+								temprock = HeightPoints.points[a][b].rock;
 							}
 							Integer AminusY = a-y;
 							Integer BminusX = b-x;
@@ -97,10 +97,10 @@ public intHeight(groundarray in, double scaleIn){
 							tempv = 0;
 							temprock = 0;
 							}else{ 
-								tempwater = HeightPoints.points[y][x].water;
-								tempu = HeightPoints.points[y][x].u;
-								tempv = HeightPoints.points[y][x].v;
-								temprock = HeightPoints.points[y][x].rock;
+								tempwater = HeightPoints.points[a][b].water;
+								tempu = HeightPoints.points[a][b].u;
+								tempv = HeightPoints.points[a][b].v;
+								temprock = HeightPoints.points[a][b].rock;
 							}
 							Integer AminusY = a-y;
 							Integer BminusX = b-x;
