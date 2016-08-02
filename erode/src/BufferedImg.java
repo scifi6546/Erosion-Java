@@ -87,7 +87,6 @@ public void export(String inbetween) throws IOException{
 	File WaterOutput = new File(root + "/" + "Water" + inbetween + ".png");
 	ImageIO.write(water,"png", WaterOutput);
 	File DifferenceOutput = new File("Difference" + inbetween + ".png");
-	System.out.println(root);
 	//ImageIO.write(differenceIMG,"png", DifferenceOutput);
 }
 
