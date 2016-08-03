@@ -37,7 +37,7 @@ public static int HEIGHT = 600;
 		int repeats = 200;
 		double rockstrength = .25;
 		double waterstrength = .1;
-		double scale = 500.0; 
+		double scale = 1000; 
 		double precipitation = .03;
 		double evaporation = .00;
 		JFrame output = new JFrame("output");
@@ -49,6 +49,8 @@ public static int HEIGHT = 600;
 		buffered.loadimg();
 		frame.add(new JLabel(new ImageIcon(buffered.water)));
 		frame.setVisible(true);
+		output.setVisible(true);
+		JLabel label = new JLabel(new ImageIcon(buffered.water));
 		intHeight height = new intHeight(buffered.makeintHeight(),scale);
 			for(int i = 0; i<repeats; i++){
 				height.erode();
@@ -57,6 +59,10 @@ public static int HEIGHT = 600;
 				if(i%1 == 0){
 				buffered.makeBuffered(height);
 				buffered.export(i + "");
+				output.remove(label);
+				label = new JLabel(new ImageIcon(buffered.water));
+				output.add(label);
+				output.setVisible(true);
 				//height.write();
 				}
 				System.out.println(i);
@@ -65,8 +71,8 @@ public static int HEIGHT = 600;
 		buffered.makeBuffered(height);
 		buffered.export("final");
 		output.add(new JLabel(new ImageIcon(buffered.water)));
-		output.setVisible(true);
 		
+		output.setVisible(true);
 		
 	}
 }
