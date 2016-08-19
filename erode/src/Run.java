@@ -34,7 +34,7 @@ public static int HEIGHT = 600;
 		JFrame output = new JFrame("output");
 		*/
 		
-		int repeats = 200;
+		int repeats = 8000;
 		double rockstrength = .25;
 		double waterstrength = .1;
 		double scale = 1000; 

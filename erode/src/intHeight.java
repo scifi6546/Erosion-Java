@@ -3,7 +3,8 @@ public class intHeight {
 	double scale;
 	groundarray HeightPoints;
 	double gravity = 9.81;//acceleration due to gravity on earth = 9.81
-	groundarray temp;
+	
+	private double deltatime = .0001;
 public intHeight(groundarray in, double scaleIn){
 	scale = scaleIn;
 	gravity = 9.81;
@@ -14,20 +15,24 @@ public intHeight(groundarray in, double scaleIn){
 }
 	public void watervel(){
 		//System.out.println("watervel");
-		temp = new groundarray(HeightPoints);//temporary array in which changes are written
+		groundarray temp = new groundarray(HeightPoints);//temporary array in which changes are written
 		//this part calculates the velocity
 		for(int y = 0; y<HeightPoints.points.length; y++){
 			for(int x = 0; x<HeightPoints.points[y].length;x++){
 				double waterx0 = 0;
+				double waterx1 = 0;
 				double waterxn1 = 0;
 				double rockx0 = 0;
+				double rockx1 = 0;
 				double rockxn1 = 0;
 				double watery0 = 0;
+				double watery1 = 0;
 				double wateryn1 = 0;
 				double rocky0 = 0;
+				double rocky1 = 0;
 				double rockyn1 = 0;
-				for(int a = y-1; a<=y; a++){
-					for(int b = x-1; b<=x; b++){
+				for(int a = y-1; a<=y+1; a++){
+					for(int b = x-1; b<=x+1; b++){
 						
 							double tempwater =0;
 							double temprock =0;
@@ -35,27 +40,34 @@ public intHeight(groundarray in, double scaleIn){
 								tempwater = HeightPoints.points[a][b].water;
 								temprock = HeightPoints.points[a][b].rock;
 							}
-							Integer AminusY = a-y;
-							Integer BminusX = b-x;
 							if(a-y==-1 && b-x == 0){
 								wateryn1 = tempwater;
 								rockyn1 = temprock;
-							}else if(AminusY.equals(0) &&  BminusX.equals(0)){
+							} if(a-y==0 &&  b-x==0){
 								watery0 = tempwater;
 								rocky0 = temprock;
 								waterx0 = tempwater;
 								rockx0 = temprock;
-							} if(BminusX.equals(-1) && AminusY.equals(0)){
+							} 
+							if(a-y ==1 && b-x ==0){
+								watery1 = tempwater;
+								rocky1 = temprock;
+							}
+							if(b-x == -1 && a-y == 0){
 								waterxn1 = tempwater;
 								rockxn1 = temprock;
+							} 
+							if(b-x == 1 && a-y ==0){
+								waterx1 = tempwater;
+								rockx1 = temprock;
 							}
 						
 					}
 				}
-				double deltaX = ( (waterxn1 +rockxn1) - (waterx0 +rockx0))/(scale) ;
-				double deltaY = ((wateryn1 + rockyn1) - (watery0 + rocky0))/(scale);
-				temp.points[y][x].u += deltaX*9.81;
-				temp.points[y][x].v += deltaY*9.81;
+				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/2 ;
+				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/2;
+				temp.points[y][x].u += (deltaX*-9.81)*deltatime;
+				temp.points[y][x].v += (deltaY*-9.81)*deltatime;
 			}
 		}
 		HeightPoints = new groundarray(temp);
@@ -64,19 +76,30 @@ public intHeight(groundarray in, double scaleIn){
 	
 	public void movewater(){
 		//System.out.println("movewater");
-		temp = new groundarray(HeightPoints);
+		groundarray temp = new groundarray(HeightPoints);
 		//this part calculates heights
 		for(int y = 0; y<HeightPoints.points.length; y++){
 			for(int x = 0; x<HeightPoints.points[y].length;x++){
 				double waterx0 = 0;
 				double rocksx0 = 0;
 				double tempux0 = 0;
+				
+				double waterx1 = 0;
+				double rocksx1 = 0;
+				double tempux1 = 0;
+				
 				double waterxn1 = 0;
 				double tempuxn1 = 0;
 				double rocksxn1 = 0;
+				
 				double watery0 = 0;
 				double tempvy0 = 0;
 				double rocksy0 = 0;
+				
+				double watery1 = 0;
+				double tempvy1 = 0;
+				double rocksy1 = 0;
+				
 				double wateryn1 = 0;
 				double tempvyn1 = 0;
 				double rocksyn1 = 0;
@@ -99,25 +122,37 @@ public intHeight(groundarray in, double scaleIn){
 								wateryn1 = tempwater;
 								rocksyn1 = temprock;
 								tempvyn1 = tempv;
-							}else if(a-y ==0 &&  b-x == 0){
+							} if(a-y ==0 &&  b-x == 0){
 								watery0 = tempwater;
 								rocksy0 = temprock;
 								waterx0 = tempwater;
 								rocksx0 = temprock;
 								tempux0 = tempu;
 								tempvy0 = tempv;
-							} if(b-x == -1 && a-y == 0){
+							} 
+							if(a-y == 1 && b-x==0){
+								watery1 = tempwater;
+								rocksy1 = temprock;
+								tempvy1 = tempv;
+							}
+							if(b-x == -1 && a-y == 0){
 								waterxn1 = tempwater;
 								rocksxn1 = temprock;
 								tempuxn1 = tempu;
+							} if(b-x==1 && a-y == 0){
+								waterx1 = tempwater;
+								rocksx1 = temprock;
+								tempux1 = tempu;
 							}
 						
 					}
 				}
 				
-				double deltaX = ((waterxn1*tempuxn1) -(waterx0 *tempux0))/(scale);
-				double deltaY = ((wateryn1*tempvyn1) - (watery0*tempvy0))/(scale);
-				temp.points[y][x].water+= deltaX + deltaY;
+				double deltaXH = (waterxn1-waterx1)/2;
+				double deltaYH = (wateryn1-watery1)*(tempvyn1 - tempvy1)/2;
+				double deltaU = (tempuxn1 - tempux1)/2;
+				double deltaV = (tempvyn1 - tempvy1)/2;
+				temp.points[y][x].water+= (-watery0 *  (deltaU + deltaV))*deltatime;
 		}
 			}
 		
