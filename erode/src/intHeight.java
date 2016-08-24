@@ -152,7 +152,7 @@ public intHeight(groundarray in, double scaleIn){
 				double deltaYH = (wateryn1-watery1)*(tempvyn1 - tempvy1)/2;
 				double deltaU = (tempuxn1 - tempux1)/2;
 				double deltaV = (tempvyn1 - tempvy1)/2;
-				temp.points[y][x].water+= (-watery0 *  (deltaU + deltaV))*deltatime;
+				temp.points[y][x].water+= (-waterx0 *  (deltaU + deltaV))*deltatime;
 		}
 			}
 		
