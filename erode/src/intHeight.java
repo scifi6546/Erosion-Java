@@ -42,7 +42,7 @@ public intHeight(groundarray in, double scaleIn){
 							}
 							if(a-y==-1 && b-x == 0){
 								wateryn1 = tempwater;
-								rockyn1 = temprock;
+						rockyn1 = temprock;
 							} if(a-y==0 &&  b-x==0){
 								watery0 = tempwater;
 								rocky0 = temprock;
@@ -139,7 +139,7 @@ public intHeight(groundarray in, double scaleIn){
 								waterxn1 = tempwater;
 								rocksxn1 = temprock;
 								tempuxn1 = tempu;
-							} if(b-x==1 && a-y == 0){
+							} if(b-x==1 && a-y == 0){  
 								waterx1 = tempwater;
 								rocksx1 = temprock;
 								tempux1 = tempu;
@@ -150,8 +150,8 @@ public intHeight(groundarray in, double scaleIn){
 				
 				double deltaXH = (waterxn1-waterx1)/2;
 				double deltaYH = (wateryn1-watery1)*(tempvyn1 - tempvy1)/2;
-				double deltaU = (tempuxn1 - tempux1)/2;
-				double deltaV = (tempvyn1 - tempvy1)/2;
+				double deltaU = (tempuxn1 - tempux1)/4;
+				double deltaV = (tempvyn1 - tempvy1)/4;
 				temp.points[y][x].water+= (-watery0 *  (deltaU + deltaV))*deltatime;
 		}
 			}
