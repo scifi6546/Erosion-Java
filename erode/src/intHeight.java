@@ -64,8 +64,8 @@ public intHeight(groundarray in, double scaleIn){
 						
 					}
 				}
-				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/2 ;
-				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/2;
+				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/4 ;
+				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/4;
 				temp.points[y][x].u += (deltaX*-9.81)*deltatime;
 				temp.points[y][x].v += (deltaY*-9.81)*deltatime;
 			}
@@ -103,8 +103,8 @@ public intHeight(groundarray in, double scaleIn){
 				double wateryn1 = 0;
 				double tempvyn1 = 0;
 				double rocksyn1 = 0;
-				for(int a = y-1; a<y+1; a++){
-					for(int b = x-1; b<x+1; b++){
+				for(int a = y-1; a<=y+1; a++){
+					for(int b = x-1; b<=x+1; b++){
 						
 							double tempwater =0;
 							double temprock =0;
