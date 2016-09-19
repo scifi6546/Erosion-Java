@@ -170,4 +170,67 @@ public intHeight(groundarray in, double scaleIn){
 		
 		HeightPoints = new groundarray(temp);
 	}
+	public void rock(){
+		//System.out.println("watervel");
+		groundarray temp = new groundarray(HeightPoints);//temporary array in which changes are written
+		//this part calculates the velocity
+		for(int y = 0; y<HeightPoints.points.length; y++){
+			for(int x = 0; x<HeightPoints.points[y].length;x++){
+				double waterx0 = 0;
+				double waterx1 = 0;
+				double waterxn1 = 0;
+				double rockx0 = 0;
+				double rockx1 = 0;
+				double rockxn1 = 0;
+				double watery0 = 0;
+				double watery1 = 0;
+				double wateryn1 = 0;
+				double rocky0 = 0;
+				double rocky1 = 0;
+				double rockyn1 = 0;
+				for(int a = y-1; a<=y+1; a++){
+					for(int b = x-1; b<=x+1; b++){
+						
+							double tempwater =95;
+							double temprock =0;
+							if(a>=0 && a< HeightPoints.points.length && b>=0 && b< HeightPoints.points[y].length){
+								tempwater = HeightPoints.points[a][b].water;
+								temprock = HeightPoints.points[a][b].rock;
+							}else{
+								tempwater = original.points[y][x].water;
+								temprock =  original.points[y][x].rock;
+							}
+							if(a-y==-1 && b-x == 0){
+								wateryn1 = tempwater;
+						rockyn1 = temprock;
+							} if(a-y==0 &&  b-x==0){
+								watery0 = tempwater;
+								rocky0 = temprock;
+								waterx0 = tempwater;
+								rockx0 = temprock;
+							} 
+							if(a-y ==1 && b-x ==0){
+								watery1 = tempwater;
+								rocky1 = temprock;
+							}
+							if(b-x == -1 && a-y == 0){
+								waterxn1 = tempwater;
+								rockxn1 = temprock;
+							} 
+							if(b-x == 1 && a-y ==0){
+								waterx1 = tempwater;
+								rockx1 = temprock;
+							}
+						
+					}
+				}
+				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/2 ;
+				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/2;
+				temp.points[y][x].u += (deltaX*-9.81)*deltatime;
+				temp.points[y][x].v += (deltaY*-9.81)*deltatime;
+			}
+		}
+		HeightPoints = new groundarray(temp);
+		movewater();
+	}
 }
