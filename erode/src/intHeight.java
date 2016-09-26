@@ -5,7 +5,7 @@ public class intHeight {
 	groundarray original;
 	double gravity = 9.81;//acceleration due to gravity on earth = 9.81
 	
-	private double deltatime = .001;
+	private double deltatime = .0001;
 public intHeight(groundarray in, double scaleIn){
 	scale = scaleIn;
 	gravity = 9.81;
@@ -13,15 +13,18 @@ public intHeight(groundarray in, double scaleIn){
 	original = new groundarray(in);
 }
 	public void erode(){
-	watervel();
-	rock();
+	groundarray stepone = new groundarray(HeightPoints);
+	stepone = movewater(watervel(stepone,deltatime/2), deltatime/2);
+	stepone = watervel(stepone, deltatime/2);
+	HeightPoints = movewater(stepone, deltatime);
+	
 }
-	public void watervel(){
+	public groundarray watervel(groundarray in, double deltaT){
 		//System.out.println("watervel");
-		groundarray temp = new groundarray(HeightPoints);//temporary array in which changes are written
+		groundarray temp = new groundarray(in);//temporary array in which changes are written
 		//this part calculates the velocity
-		for(int y = 0; y<HeightPoints.points.length; y++){
-			for(int x = 0; x<HeightPoints.points[y].length;x++){
+		for(int y = 0; y<in.points.length; y++){
+			for(int x = 0; x<in.points[y].length;x++){
 				double waterx0 = 0;
 				double waterx1 = 0;
 				double waterxn1 = 0;
@@ -39,9 +42,9 @@ public intHeight(groundarray in, double scaleIn){
 						
 							double tempwater =95;
 							double temprock =0;
-							if(a>=0 && a< HeightPoints.points.length && b>=0 && b< HeightPoints.points[y].length){
-								tempwater = HeightPoints.points[a][b].water;
-								temprock = HeightPoints.points[a][b].rock;
+							if(a>=0 && a< in.points.length && b>=0 && b< HeightPoints.points[y].length){
+								tempwater = in.points[a][b].water;
+								temprock = in.points[a][b].rock;
 							}else{
 								tempwater = original.points[y][x].water;
 								temprock =  original.points[y][x].rock;
@@ -72,22 +75,19 @@ public intHeight(groundarray in, double scaleIn){
 				}
 				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/(2* scale) ;
 				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/(2* scale);
-				double firstV = HeightPoints.points[y][x].u + HeightPoints.points[y][x].v;
-				temp.points[y][x].u += (deltaX*-99.81)*deltatime;
-				temp.points[y][x].v += (deltaY*-99.81)*deltatime;
-				temp.points[y][x].deltaV = temp.points[y][x].u + temp.points[y][x].v - firstV;
+				temp.points[y][x].u += (deltaX*-gravity)*deltaT;
+				temp.points[y][x].v += (deltaY*-gravity)*deltaT;
 			}
 		}
-		HeightPoints = new groundarray(temp);
-		movewater();
+		return temp;
 	}
 	
-	public void movewater(){
+	public groundarray movewater(groundarray in, double deltaT){
 		//System.out.println("movewater");
-		groundarray temp = new groundarray(HeightPoints);
+		groundarray temp = new groundarray(in);
 		//this part calculates heights
-		for(int y = 0; y<HeightPoints.points.length; y++){
-			for(int x = 0; x<HeightPoints.points[y].length;x++){
+		for(int y = 0; y<in.points.length; y++){
+			for(int x = 0; x<in.points[y].length;x++){
 				double waterx0 = 0;
 				double rocksx0 = 0;
 				double tempux0 = 0;
@@ -118,11 +118,11 @@ public intHeight(groundarray in, double scaleIn){
 							double temprock =0;
 							double tempu = 0;
 							double tempv = 0;
-							if(a>=0 && a< HeightPoints.points.length && b>=0 && b< HeightPoints.points[y].length){
-								tempwater = HeightPoints.points[a][b].water;
-								temprock = HeightPoints.points[a][b].rock;
-								tempu = HeightPoints.points[a][b].u;
-								tempv = HeightPoints.points[a][b].v;
+							if(a>=0 && a< in.points.length && b>=0 && b< in.points[y].length){
+								tempwater = in.points[a][b].water;
+								temprock = in.points[a][b].rock;
+								tempu = in.points[a][b].u;
+								tempv = in.points[a][b].v;
 							}else {
 								tempwater = original.points[y][x].water;
 								temprock = original.points[y][x].rock;
@@ -167,12 +167,11 @@ public intHeight(groundarray in, double scaleIn){
 				double deltaY = ((wateryn1 * tempvyn1) - (watery1 * tempvy1))/ (2*scale);
 				double deltaU = (tempuxn1 - tempux1)/(2*scale);
 				double deltaV = (tempvyn1 - tempvy1)/(2*scale);
-				temp.points[y][x].water+= (deltaX + deltaY)*deltatime;
+				temp.points[y][x].water+= (deltaX + deltaY)*deltaT;
 				
 		}
 			}
-		
-		HeightPoints = new groundarray(temp);
+		return temp;
 	}
 	public void rock(){
 		//System.out.println("watervel");
@@ -186,6 +185,5 @@ public intHeight(groundarray in, double scaleIn){
 			}
 		}
 		HeightPoints = new groundarray(temp);
-		movewater();
 	}
 }
