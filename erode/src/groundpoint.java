@@ -11,7 +11,7 @@ double rockdifference;
 double disolved = 0;
 public double u;
 public double v;
-
+public double deltaV;
 public groundpoint(){
 	rock = 0;
 	water = 0;
@@ -27,7 +27,9 @@ public groundpoint(groundpoint point){
 	waterhardness = point.waterhardness;
 	evaporation = point.evaporation;
 	watererosion = point.watererosion;
+	disolved = point.disolved;
 	u = point.u;
 	v = point.v;
+	deltaV = point.deltaV;
 }
 }
