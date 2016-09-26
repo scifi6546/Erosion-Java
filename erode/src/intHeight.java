@@ -4,8 +4,9 @@ public class intHeight {
 	groundarray HeightPoints;
 	groundarray original;
 	double gravity = 9.81;//acceleration due to gravity on earth = 9.81
+	private double deltatime = .005;
 	
-	private double deltatime = .0001;
+	
 public intHeight(groundarray in, double scaleIn){
 	scale = scaleIn;
 	gravity = 9.81;
@@ -75,8 +76,8 @@ public intHeight(groundarray in, double scaleIn){
 				}
 				double deltaX = ( (waterxn1 +rockxn1) - (waterx1 +rockx1))/(2* scale) ;
 				double deltaY = ((wateryn1 + rockyn1) - (watery1 + rocky1))/(2* scale);
-				temp.points[y][x].u += (deltaX*-gravity)*deltaT;
-				temp.points[y][x].v += (deltaY*-gravity)*deltaT;
+				temp.points[y][x].u += (deltaX*gravity)*deltaT;
+				temp.points[y][x].v += (deltaY*gravity)*deltaT;
 			}
 		}
 		return temp;
