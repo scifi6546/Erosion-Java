@@ -19,25 +19,11 @@ public static int HEIGHT = 600;
 	public static void main(String[] args) throws IOException {
 		Scanner reader = new Scanner(System.in);
 		// TODO Auto-generated method stub
-/*		System.out.println("erosion repeats?");
-		int repeats = reader.nextInt();
-		System.out.println("rock erosion strength?");
-		double rockstrength = reader.nextDouble();
-		System.out.println("water erosion strength?");
-		double waterstrength = reader.nextDouble();
-		System.out.println("scale?");
-		double scale = reader.nextDouble();
-		System.out.println("precipitation?");
-		double precipitation = reader.nextDouble();
-		System.out.println("evaporation?");
-		double evaporation = reader.nexble();
-		JFrame output = new JFrame("output");
-		*/
 		
-		int repeats = 20000;
+		int repeats = 500;
 		double rockstrength = .25;
 		double waterstrength = .1;
-		double scale = 10; 
+		double scale = 1; 
 		double precipitation = .03;
 		double evaporation = .00;
 		JFrame output = new JFrame("output");

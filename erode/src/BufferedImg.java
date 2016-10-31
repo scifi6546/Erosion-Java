@@ -64,7 +64,7 @@ public void makeBuffered(intHeight height){
 	differenceIMG = new BufferedImage(height.HeightPoints.points[0].length,height.HeightPoints.points.length,1);
 	for(int y = 0; y < height.HeightPoints.points.length; y++){
 		for(int x = 0; x < height.HeightPoints.points[y].length; x++){
-			int rockheight = (int) height.HeightPoints.points[y][x].rock;
+			int rockheight = (int) height.HeightPoints.points[y][x].rock; 
 			if(rockheight> 255)
 				rockheight = 255;
 			else if(rockheight < 0)
@@ -82,11 +82,11 @@ public void makeBuffered(intHeight height){
 	}
 }
 public void export(String inbetween) throws IOException{
-	File RockOutput = new File(root + "/" + "Rock" + inbetween + ".png");
+	File RockOutput = new File(root + "/rock/" + "Rock" + inbetween + ".png");
 	ImageIO.write(rockimg,"png", RockOutput);
-	File WaterOutput = new File(root + "/" + "Water" + inbetween + ".png");
+	File WaterOutput = new File(root + "/water/" + "Water" + inbetween + ".png");
 	ImageIO.write(water,"png", WaterOutput);
-	File DifferenceOutput = new File("Difference" + inbetween + ".png");
+	//File DifferenceOutput = new File("Difference" + inbetween + ".png");
 	//ImageIO.write(differenceIMG,"png", DifferenceOutput);
 }
 
