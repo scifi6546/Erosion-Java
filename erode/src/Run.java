@@ -20,7 +20,7 @@ public static int HEIGHT = 600;
 		Scanner reader = new Scanner(System.in);
 		// TODO Auto-generated method stub
 		
-		int repeats = 500;
+		int repeats = 1550;
 		double rockstrength = .25;
 		double waterstrength = .1;
 		double scale = 1; 
@@ -43,6 +43,7 @@ public static int HEIGHT = 600;
 			
 					
 				if(i%1 == 0){
+				
 				buffered.makeBuffered(height);
 				buffered.export(i + "");
 				output.remove(label);

@@ -1,10 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 //
 public class intHeight {
 	double scale;
 	public groundarray HeightPoints;
 	public groundarray original;
 	double gravity = 9.81;//acceleration due to gravity on earth = 9.81
-	private double deltatime = .001;
+	private double deltatime = .0001;
 
 
 	public intHeight(groundarray in, double scaleIn){
@@ -17,7 +21,7 @@ public class intHeight {
 		groundarray stepone = new groundarray(HeightPoints);
 		HeightPoints = watervel(HeightPoints,deltatime);
 		HeightPoints = movewater(HeightPoints,deltatime);
-		//System.out.println(toString()); this prints out the array in terminal
+		System.out.println(toString()); //this prints out the array in terminal
 
 	}
 	public groundarray watervel(groundarray in, double deltaT){
@@ -202,5 +206,8 @@ public class intHeight {
 			out += "\n";
 		}
 		return out;
+	}
+	public void print (File directory, String Name) throws FileNotFoundException{
+		PrintWriter out = new PrintWriter(directory + Name + ".txt");
 	}
 }
